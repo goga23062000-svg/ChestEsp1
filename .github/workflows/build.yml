@@ -1,0 +1,29 @@
+name: build
+
+on:
+ push:
+
+jobs:
+ build:
+  runs-on: ubuntu-latest
+
+  steps:
+   - uses: actions/checkout@v3
+
+   - name: Setup Java
+     uses: actions/setup-java@v3
+     with:
+      distribution: temurin
+      java-version: 8
+
+   - name: Setup Gradle
+     uses: gradle/gradle-build-action@v2
+
+   - name: Build
+     run: gradle build
+
+   - name: Upload
+     uses: actions/upload-artifact@v4
+     with:
+      name: ChestESP
+      path: build/libs/*.jar
